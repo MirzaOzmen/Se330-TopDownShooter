@@ -4,53 +4,48 @@ public class EnemySpawner : MonoBehaviour
 {
 
     [SerializeField] GameObject EnemyOne;
-    [SerializeField] GameObject MapBoundryMax, MapBoundryMin;
+    [SerializeField] private GameObject[] spawnLocations;
+    [SerializeField] private float SpawnFrequency ;
 
-    [SerializeField] Camera mainCamera;
-    private Vector2 CameraTopRight;
-    private Vector2 CameraBottomLeft;
+    private CameraBoundries cameraBoundries;
     void Start()
     {
-        CameraBoudries();
-
+        cameraBoundries = GameObject.FindAnyObjectByType<CameraBoundries>();
         StartCoroutine(EnemySpawn());
     }
 
     // Update is called once per frame
     void Update()
     {
-        CameraBoudries();
+      //  CameraBoudries();
         
     }
     IEnumerator EnemySpawn()
     {
-        Vector2 SpawnPoint = Vector2.zero;
-        float max_X;
-        float min_X;
-        float max_Y;
-        float min_Y;
+        int spawnPointIndex;
         Debug.Log("spawnyok");
         while (true)
         {
-            Debug.Log("spawned");
-           
-            max_X = Random.Range(MapBoundryMax.transform.position.x, CameraTopRight.x);
-            min_X = Random.Range(MapBoundryMin.transform.position.x, CameraBottomLeft.x);
-            max_Y = Random.Range(MapBoundryMax.transform.position.y, CameraTopRight.y);
-            min_Y = Random.Range(MapBoundryMin.transform.position.y, CameraBottomLeft.y);
+          
+            spawnPointIndex = Random.Range(0, spawnLocations.Length);
+            if(spawnLocations[spawnPointIndex].transform.position.x < cameraBoundries.CameraTopRight.x && spawnLocations[spawnPointIndex].transform.position.x > cameraBoundries.CameraBottomLeft.x 
+                && spawnLocations[spawnPointIndex].transform.position.y < cameraBoundries.CameraTopRight.y && spawnLocations[spawnPointIndex].transform.position.y > cameraBoundries.CameraBottomLeft.y)
+            {
+                Debug.Log("kameraya denk geldi");
+              //  StartCoroutine(EnemySpawn());
+              //  break;
+            }
+            else
+            {
+                Debug.Log("spawnOluyor");
+                Instantiate(EnemyOne, spawnLocations[spawnPointIndex].transform.position, Quaternion.identity);
+            }
+          
+         
 
-            SpawnPoint = new Vector2(Random.Range(min_X, max_X), Random.Range(min_Y, max_Y));
-            Instantiate(EnemyOne, SpawnPoint, Quaternion.identity);
-
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(SpawnFrequency);
         }
       
     }
-    private void CameraBoudries()
-    {
-        CameraBottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        CameraTopRight = mainCamera.ViewportToWorldPoint(new Vector3(1, 1, 0));
-        Debug.Log("bottom = " + CameraBottomLeft + " TopRight = " + CameraTopRight);
 
-    }
 }
