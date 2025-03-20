@@ -187,7 +187,11 @@ MonoBehaviour:
   distanceToShoot: 8
   distanceToStop: 5
   firingPoint: {fileID: 6196320432973144788}
-  fireRate: 0.5
+  fireRate: 2
+  obstacleAvoidanceDistance: 1.5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &4031166669467322924
 GameObject:
   m_ObjectHideFlags: 0
