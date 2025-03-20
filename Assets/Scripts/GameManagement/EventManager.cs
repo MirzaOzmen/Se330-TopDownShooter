@@ -3,7 +3,7 @@ using System;
 
 public  class  EventManager :MonoBehaviour
 {
-    public event Action <int> HealthChangeEvent;
+    public event Action <GameObject,int> HealthChangeEvent;
     public event Action<int> MaxHealthChangeEvent;
     public event Action<int> MaxHealthBarUpdateEvent;
     public event Action<int> HealthBarUpdateEvent;
@@ -26,15 +26,15 @@ public  class  EventManager :MonoBehaviour
 
     // Update is called once per frame
 
-     public void Heal_EventDetected(int healAmount)
+     public void Heal_EventDetected(GameObject Character ,int healAmount)
     {
-        HealthChangeEvent?.Invoke(healAmount);
+        HealthChangeEvent?.Invoke(Character,healAmount);
     }
     public void MaxHeal_EventDetected(int healAmount)
     {
         MaxHealthChangeEvent?.Invoke(healAmount);
     }
-    public void HealBar_EventDetected(int healAmount)
+    public void HealthBar_EventDetected(int healAmount)
     {
         HealthBarUpdateEvent?.Invoke(healAmount);
     }

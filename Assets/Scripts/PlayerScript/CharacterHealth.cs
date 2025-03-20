@@ -1,17 +1,21 @@
 using UnityEngine;
 
-public class CharacterHealth : MonoBehaviour
+public class CharacterHealth : MonoBehaviour , Damageble
 {
     [SerializeField] public int CharacterMaxHealth;
     [SerializeField] public int CharacterCurrentHealth;
+    [SerializeField] private bool isPlayer;
+    [SerializeField] private TeamEnum team;
+    public TeamEnum Team => team;
+    
   
 
     private void Start()
     {
-
+       
         EventManager.Instance.MaxHealBar_EventDetected(CharacterMaxHealth);
 
-        EventManager.Instance.HealBar_EventDetected(CharacterCurrentHealth);
+        EventManager.Instance.HealthBar_EventDetected(CharacterCurrentHealth);
 
     }
     private void OnEnable()
@@ -32,19 +36,24 @@ public class CharacterHealth : MonoBehaviour
     {
      //   Debug.Log("current Health = " + CharacterCurrentHealth + " Max Health = " + CharacterMaxHealth);
     }
-    public void ChangeHealthOfTheCharacter(int amount)
+    public void ChangeHealthOfTheCharacter(GameObject character,int amount)
     {
        // Debug.Log("HealTetiklendi");
-        CharacterCurrentHealth += amount;
-        if (CharacterCurrentHealth > CharacterMaxHealth) CharacterCurrentHealth = CharacterMaxHealth;
+       if(character ==gameObject)
+        {
+            CharacterCurrentHealth += amount;
+            if (CharacterCurrentHealth > CharacterMaxHealth) CharacterCurrentHealth = CharacterMaxHealth;
+            if (isPlayer) EventManager.Instance.HealthBar_EventDetected(CharacterCurrentHealth);
+        }
 
-        EventManager.Instance.HealBar_EventDetected(CharacterCurrentHealth);
+      
+
 
     }
     public void IncreaseMaxHealth(int amount)
     {
         CharacterMaxHealth += amount;
-        EventManager.Instance.MaxHealBar_EventDetected(CharacterMaxHealth);
+        if (isPlayer) EventManager.Instance.MaxHealBar_EventDetected(CharacterMaxHealth);
 
     }
 }
