@@ -11,15 +11,33 @@ public class GiveDamageToCharacter : MonoBehaviour
           {
               HealTheCharacter.HealTheCharacter(HealAmount);
           } */
-        Damageble damageble = collision.gameObject.GetComponent<Damageble>();
-        if (damageble != null)
+        
+        if (collision.TryGetComponent<Damageble>(out Damageble damageble))
         {
             if(myTeam != damageble.Team)
             {
-                EventManager.Instance.Heal_EventDetected(collision.gameObject, DamageAmount);
-                Destroy(gameObject);
+                damageble.ChangeHealthOfTheCharacter(-1*DamageAmount);
+                GameObject.Destroy(gameObject);
+               
             }
           
         }
-    }
+        else // wall etc.
+        {
+            GameObject.Destroy(gameObject);
+        }
+     } 
+   /* private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<Damageble>(out Damageble damageble))
+        {
+            if (myTeam != damageble.Team)
+            {
+                damageble.ChangeHealthOfTheCharacter(DamageAmount);
+                GameObject.Destroy(gameObject);
+
+            }
+
+        }
+    }*/
 }

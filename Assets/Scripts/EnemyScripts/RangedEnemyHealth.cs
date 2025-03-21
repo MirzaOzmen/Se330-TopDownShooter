@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour , Damageble
+public class RangedEnemyHealth : MonoBehaviour,Damageble
 {
     [SerializeField] public int CharacterMaxHealth;
     [SerializeField] public int CharacterCurrentHealth;
-    
+
     [SerializeField] private TeamEnum team;
     public TeamEnum Team => team;
 
@@ -23,12 +23,9 @@ public class EnemyHealth : MonoBehaviour , Damageble
 
         if (CharacterCurrentHealth <= 0)
         {
-            Debug.Log("düsman öldü");
-            EventManager.Instance.EnemyDead_EventDetected(gameObject); 
-            Destroy(gameObject); }
-
-
-
+            EventManager.Instance.EnemyDead_EventDetected(gameObject);
+            Destroy(gameObject);
+        }
 
 
 

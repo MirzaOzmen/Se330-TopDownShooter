@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 1544768636063402169}
   - component: {fileID: 2519776048839018546}
   - component: {fileID: 5009343940099745612}
+  - component: {fileID: 4001895393829711411}
+  - component: {fileID: 3868233110845469969}
+  - component: {fileID: 505786708974099694}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -186,3 +189,45 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &4001895393829711411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830810168878851530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e5cd7779782a6e4cb04755f17a2a8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageAmount: 20
+  myTeam: 1
+--- !u!114 &3868233110845469969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830810168878851530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5328b50e22df0394797e828470889146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 1
+--- !u!114 &505786708974099694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7830810168878851530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804ba667351911b40af81d17c8ffd541, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterMaxHealth: 100
+  CharacterCurrentHealth: 100
+  team: 1

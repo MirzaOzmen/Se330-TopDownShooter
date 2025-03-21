@@ -3,9 +3,10 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour
 {
 
-    [SerializeField] GameObject EnemyOne;
+    [SerializeField] GameObject[] Enemies;
     [SerializeField] private GameObject[] spawnLocations;
     [SerializeField] private float SpawnFrequency ;
+    
 
     private CameraBoundries cameraBoundries;
     void Start()
@@ -38,7 +39,8 @@ public class EnemySpawner : MonoBehaviour
             else
             {
                 Debug.Log("spawnOluyor");
-                Instantiate(EnemyOne, spawnLocations[spawnPointIndex].transform.position, Quaternion.identity);
+                int random = Random.Range(0, Enemies.Length);
+                Instantiate(Enemies[random], spawnLocations[spawnPointIndex].transform.position, Quaternion.identity);
             }
           
          

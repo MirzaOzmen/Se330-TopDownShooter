@@ -36,18 +36,18 @@ public class CharacterHealth : MonoBehaviour , Damageble
     {
      //   Debug.Log("current Health = " + CharacterCurrentHealth + " Max Health = " + CharacterMaxHealth);
     }
-    public void ChangeHealthOfTheCharacter(GameObject character,int amount)
+    public void ChangeHealthOfTheCharacter(int amount)
     {
        // Debug.Log("HealTetiklendi");
-       if(character ==gameObject)
-        {
+      
             CharacterCurrentHealth += amount;
             if (CharacterCurrentHealth > CharacterMaxHealth) CharacterCurrentHealth = CharacterMaxHealth;
             if (isPlayer) EventManager.Instance.HealthBar_EventDetected(CharacterCurrentHealth);
+        if (CharacterCurrentHealth <= 0)
+        {
+            EventManager.Instance.CharacterDead_EventDetected();
+            Destroy(gameObject);
         }
-
-      
-
 
     }
     public void IncreaseMaxHealth(int amount)

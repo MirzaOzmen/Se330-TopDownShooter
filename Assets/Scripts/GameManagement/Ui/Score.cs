@@ -11,23 +11,17 @@ public class Score : MonoBehaviour
 
     private void OnEnable()
     {
-        //trigered with enemy Death
+        EventManager.Instance.ScoreUpdateEvent += ChangeScore;
     }
     private void OnDisable()
     {
-        
-    }
-    void Update()
-    {
 
-        /* if (Input.GetButtonDown("Fire1")) // for test 
-         {
-             ChangeScore(1);
-         }*/
-       
+        EventManager.Instance.ScoreUpdateEvent -= ChangeScore;
     }
+   
     public void ChangeScore(int Score)
     {
+        Debug.Log("puannn");
         totalScore += Score;
         totalScoreText.text = "Score = " + totalScore.ToString();
     }

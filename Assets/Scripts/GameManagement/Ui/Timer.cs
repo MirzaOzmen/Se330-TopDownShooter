@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TMP_Text TimerText;
     /////
    
-    private float TimerCount = 0;
+    public float TimerCount = 0;
     void Update()
     {
         TimerCount += Time.deltaTime;

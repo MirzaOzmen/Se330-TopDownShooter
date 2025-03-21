@@ -28,6 +28,7 @@ public class RangedEnemy : MonoBehaviour
 
         private void Update()
         {
+            if (Time.timeScale == 0) return;
             if (!target)
             {
                 GetTarget();

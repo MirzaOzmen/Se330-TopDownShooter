@@ -19,6 +19,7 @@ namespace EnemyScripts
 
         private void Update()
         {
+            if (Time.timeScale == 0) return;
             if (!target)
             {
                 GetTarget();
@@ -88,7 +89,7 @@ namespace EnemyScripts
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+     /*   private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
@@ -100,6 +101,6 @@ namespace EnemyScripts
                 Destroy(other.gameObject);
                 Destroy(gameObject);
             }
-        }
+        } */
     }
 }

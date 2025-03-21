@@ -3,23 +3,31 @@ using UnityEngine;
 public class pauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject PauseMenuGo;
+     private bool PlayerDead = false;
     private bool isMenuActive = false;
     void Start()
     {
         
     }
 
-
+    private void OnEnable()
+    {
+        EventManager.Instance.CharacterDeadEvent += isCharacterDead;
+    }
+    private void OnDisable()
+    {
+        EventManager.Instance.CharacterDeadEvent -= isCharacterDead;
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) )
+        if (Input.GetKeyDown(KeyCode.Escape) && !PlayerDead)
         {
             menuActivate();
 
         }
         
     }
-    public void menuActivate()
+    private void menuActivate()
     {
        
             isMenuActive = !isMenuActive;
@@ -28,5 +36,9 @@ public class pauseMenu : MonoBehaviour
             PauseMenuGo.SetActive(isMenuActive);
 
         
+    }
+    private void isCharacterDead()
+    {
+        PlayerDead = true;
     }
 }
