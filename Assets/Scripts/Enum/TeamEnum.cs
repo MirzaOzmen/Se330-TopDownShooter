@@ -1,6 +1,7 @@
 public enum TeamEnum
 {
     Player,  
-    Enemy  
-   
+    Enemy,
+    Destructibles
+
 }
