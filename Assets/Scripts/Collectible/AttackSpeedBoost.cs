@@ -14,21 +14,40 @@ public class AttackSpeedBoost : MonoBehaviour
         {
             player = GetComponent<Player>();
         }
-        player = GetComponent<Player>();
+        
     }
     private void OnEnable()
     {
-        EventManager.Instance.AttackSpeedChangeEvent += callAttackSpeedCalculation;
+        //EventManager.Instance.AttackSpeedChangeEvent += callAttackSpeedCalculation;
+        EventManager.Instance.buffwithPercentageEvent += callAttackSpeedCalculations;
         
     }
     private void OnDisable()
     {
-        EventManager.Instance.AttackSpeedChangeEvent -= callAttackSpeedCalculation;
+        // EventManager.Instance.AttackSpeedChangeEvent -= callAttackSpeedCalculation;
+        EventManager.Instance.buffwithPercentageEvent -= callAttackSpeedCalculations;
     }
 
 
-    public void callAttackSpeedCalculation(float buffpercentage,float timer)
+    public void callAttackSpeedCalculations( BoostEnum boosType,float buffpercentage, float timer)
     {
+        if (boosType != BoostEnum.attackSpeed) return;
+        
+
+            if (AttackBoost != null)
+            {
+                StopCoroutine(AttackBoost);
+                Debug.Log("durduruldu");
+
+            }
+
+            AttackBoost = StartCoroutine(temporaryAttackSpeedBoost(buffpercentage, timer));
+        
+
+    }
+  /*  public void callAttackSpeedCalculation(float buffpercentage,float timer)
+    {
+        
         if (AttackBoost != null)
         {
             StopCoroutine(AttackBoost);
@@ -37,17 +56,18 @@ public class AttackSpeedBoost : MonoBehaviour
         }
 
         AttackBoost = StartCoroutine(temporaryAttackSpeedBoost(buffpercentage,timer));
-    }
+    }*/
     IEnumerator temporaryAttackSpeedBoost(float buffpercentage,float timer)
     {
-        Debug.Log("bbase = " + player.BaseFireRate + "  boost = " + buffpercentage);
-        player.boostRate = player.BaseFireRate*(buffpercentage/100);
+        Debug.Log("bbase = " + player.returnBaseFireRate() + "  boost = " + buffpercentage);
+        player.AttackSpeedboostRate = player.returnBaseFireRate()*(buffpercentage/100);
 
-        Debug.Log("girdi = " + player.boostRate);
+        Debug.Log("girdi = " + player.AttackSpeedboostRate);
        
         yield return new WaitForSeconds(timer);
-        //characterAttackSpeed.attackSpedd = BaseAttackSpeed;
-        player.boostRate = 0;
+       
+
+        player.AttackSpeedboostRate = 0;
     }
 
 

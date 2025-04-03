@@ -3,12 +3,18 @@ using System;
 
 public  class  EventManager :MonoBehaviour
 {
+    //Health Events
     public event Action <int> HealthChangeEvent;
     public event Action<int> MaxHealthChangeEvent;
+    //Boost Events
     public event Action<float, float> AttackSpeedChangeEvent;
+    public event Action<BoostEnum, float , float > buffwithPercentageEvent;
+
+    //Ui Events
     public event Action<int> MaxHealthBarUpdateEvent;
     public event Action<int> HealthBarUpdateEvent;
     public event Action<int> ScoreUpdateEvent;
+    //Dead Events
     public event Action CharacterDeadEvent;
     public event Action<GameObject> EnemyDeadEvent;
     public event Action<GameObject> DestroyObject;
@@ -30,7 +36,7 @@ public  class  EventManager :MonoBehaviour
 
     // Update is called once per frame
 
-     public void Heal_EventDetected(GameObject Character ,int healAmount)
+     public void Heal_EventDetected(int healAmount)
     {
         HealthChangeEvent?.Invoke(healAmount);
     }
@@ -50,9 +56,9 @@ public  class  EventManager :MonoBehaviour
     {
         ScoreUpdateEvent?.Invoke(ScoreAmount);
     }
-    public void DestroyTheObject(GameObject diedObject)
+    public void DestroyTheObject(GameObject destroyedCharacter)
     {
-        DestroyObject?.Invoke(diedObject);
+        DestroyObject?.Invoke(destroyedCharacter);
     }
     public void AttackSpeed_EventDetected(float percentage,float Time)
     {
@@ -62,9 +68,13 @@ public  class  EventManager :MonoBehaviour
     {
         CharacterDeadEvent?.Invoke();
     }
-    public void EnemyDead_EventDetected(GameObject gameobject)
+    public void EnemyDead_EventDetected(GameObject DiedCharacter)
     {
-        EnemyDeadEvent?.Invoke(gameobject);
+        EnemyDeadEvent?.Invoke(DiedCharacter);
+    }
+    public void percentageBuff_EventDetected(BoostEnum boosType, float percentage, float time)
+    {
+        buffwithPercentageEvent(boosType, percentage, time);
     }
    
 }

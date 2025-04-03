@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firingPoint;
     [Range(0.1f, 2f)] [SerializeField] private float fireRate = 0.5f;
-    public float BaseFireRate;
-    public float boostRate;
+    public float AttackSpeedboostRate;
+    public float movementSpeedBoostRate;
     private Rigidbody2D rb;
     private float mx;
     private float my;
@@ -20,8 +20,8 @@ public class Player : MonoBehaviour
     
     void Start()
     {
-        BaseFireRate = fireRate;
-        boostRate = 0;
+        
+        AttackSpeedboostRate = 0;
         rb = GetComponent<Rigidbody2D>();
     }
     
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         mx= Input.GetAxisRaw("Horizontal");
         my= Input.GetAxisRaw("Vertical");
         mousePos= Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("benim attack speed = " + boostRate);
+        Debug.Log("benim attack speed = " + AttackSpeedboostRate);
         if (Time.timeScale == 0) return;
         float angle =
             Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg - 90f;
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         transform.localRotation = Quaternion.Euler(0, 0, angle);
         if (Input.GetMouseButton (0) && fireTimer <= 0)
         {
-            fireTimer = fireRate - boostRate;
+            fireTimer = GetCurrentFireRate();
             Shoot();
         }
         else
@@ -49,19 +49,31 @@ public class Player : MonoBehaviour
     
      private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(mx,my).normalized * speed;
+        rb.linearVelocity = new Vector2(mx,my).normalized * (speed+movementSpeedBoostRate);
     }
 
     private void Shoot()
     {
         Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
     }
-
-  /*  private void OnCollisionEnter2D(Collision2D other)
+    private float GetCurrentFireRate()
     {
-        if (other.gameObject.CompareTag("EnemyBullet"))
-        {
-            Destroy(gameObject);
-        }
-    }*/
+        return fireRate - AttackSpeedboostRate;
+    }
+    public float returnBaseFireRate()
+    {
+        return fireRate;
+    }
+    public float returnBaseMovementSpeed()
+    {
+        return speed;
+    }
+
+    /*  private void OnCollisionEnter2D(Collision2D other)
+      {
+          if (other.gameObject.CompareTag("EnemyBullet"))
+          {
+              Destroy(gameObject);
+          }
+      }*/
 }
