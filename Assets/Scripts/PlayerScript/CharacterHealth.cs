@@ -40,9 +40,13 @@ public class CharacterHealth : MonoBehaviour , Damageble
     {
        // Debug.Log("HealTetiklendi");
       
-            CharacterCurrentHealth += amount;
-            if (CharacterCurrentHealth > CharacterMaxHealth) CharacterCurrentHealth = CharacterMaxHealth;
-            if (isPlayer) EventManager.Instance.HealthBar_EventDetected(CharacterCurrentHealth);
+        CharacterCurrentHealth += amount;
+        if (CharacterCurrentHealth > CharacterMaxHealth) CharacterCurrentHealth = CharacterMaxHealth;
+        if (isPlayer)
+        {
+            EventManager.Instance.HealthBar_EventDetected(CharacterCurrentHealth);
+            EventManager.Instance.HealthUi_EventDetected(CharacterCurrentHealth, CharacterMaxHealth);
+        }
         if (CharacterCurrentHealth <= 0)
         {
             EventManager.Instance.CharacterDead_EventDetected();
@@ -53,7 +57,11 @@ public class CharacterHealth : MonoBehaviour , Damageble
     public void IncreaseMaxHealth(int amount)
     {
         CharacterMaxHealth += amount;
-        if (isPlayer) EventManager.Instance.MaxHealBar_EventDetected(CharacterMaxHealth);
+        if (isPlayer)
+        {
+            EventManager.Instance.MaxHealBar_EventDetected(CharacterMaxHealth);
+            EventManager.Instance.HealthUi_EventDetected(CharacterCurrentHealth, CharacterMaxHealth);
+        }
 
     }
 }

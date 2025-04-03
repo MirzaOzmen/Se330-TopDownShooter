@@ -6,8 +6,8 @@ public  class  EventManager :MonoBehaviour
     //Health Events
     public event Action <int> HealthChangeEvent;
     public event Action<int> MaxHealthChangeEvent;
+    public event Action<int,int> HealthChangeForUiEvent;
     //Boost Events
-    public event Action<float, float> AttackSpeedChangeEvent;
     public event Action<BoostEnum, float , float > buffwithPercentageEvent;
 
     //Ui Events
@@ -44,6 +44,10 @@ public  class  EventManager :MonoBehaviour
     {
         MaxHealthChangeEvent?.Invoke(healAmount);
     }
+    public void HealthUi_EventDetected(int health,int maxHealth)
+    {
+        HealthChangeForUiEvent?.Invoke(health, maxHealth);
+    }
     public void HealthBar_EventDetected(int healAmount)
     {
         HealthBarUpdateEvent?.Invoke(healAmount);
@@ -60,10 +64,6 @@ public  class  EventManager :MonoBehaviour
     {
         DestroyObject?.Invoke(destroyedCharacter);
     }
-    public void AttackSpeed_EventDetected(float percentage,float Time)
-    {
-        AttackSpeedChangeEvent?.Invoke(percentage, Time);
-    }
     public void CharacterDead_EventDetected()
     {
         CharacterDeadEvent?.Invoke();
@@ -76,5 +76,6 @@ public  class  EventManager :MonoBehaviour
     {
         buffwithPercentageEvent(boosType, percentage, time);
     }
+
    
 }

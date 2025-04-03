@@ -18,13 +18,13 @@ public class AttackSpeedBoost : MonoBehaviour
     }
     private void OnEnable()
     {
-        //EventManager.Instance.AttackSpeedChangeEvent += callAttackSpeedCalculation;
+        
         EventManager.Instance.buffwithPercentageEvent += callAttackSpeedCalculations;
         
     }
     private void OnDisable()
     {
-        // EventManager.Instance.AttackSpeedChangeEvent -= callAttackSpeedCalculation;
+       
         EventManager.Instance.buffwithPercentageEvent -= callAttackSpeedCalculations;
     }
 
@@ -45,21 +45,10 @@ public class AttackSpeedBoost : MonoBehaviour
         
 
     }
-  /*  public void callAttackSpeedCalculation(float buffpercentage,float timer)
-    {
-        
-        if (AttackBoost != null)
-        {
-            StopCoroutine(AttackBoost);
-            Debug.Log("durduruldu");
 
-        }
-
-        AttackBoost = StartCoroutine(temporaryAttackSpeedBoost(buffpercentage,timer));
-    }*/
     IEnumerator temporaryAttackSpeedBoost(float buffpercentage,float timer)
     {
-        Debug.Log("bbase = " + player.returnBaseFireRate() + "  boost = " + buffpercentage);
+        Debug.Log("base = " + player.returnBaseFireRate() + "  boost = " + buffpercentage);
         player.AttackSpeedboostRate = player.returnBaseFireRate()*(buffpercentage/100);
 
         Debug.Log("girdi = " + player.AttackSpeedboostRate);

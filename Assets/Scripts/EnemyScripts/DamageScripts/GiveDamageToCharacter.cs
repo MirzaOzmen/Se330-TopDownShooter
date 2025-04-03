@@ -24,6 +24,7 @@ public class GiveDamageToCharacter : MonoBehaviour
         }
         else // wall etc.
         {
+           if(collision.tag != "Bullet")
             GameObject.Destroy(gameObject);
         }
      } 

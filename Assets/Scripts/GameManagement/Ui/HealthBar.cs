@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider HealthBarSlider;
+    [SerializeField] private RectTransform background;
+    
 
     void Start()
     {
@@ -31,6 +33,11 @@ public class HealthBar : MonoBehaviour
     {
         Debug.Log("Max bar updated" + " can = " + maxHealth);
         HealthBarSlider.maxValue = maxHealth;
+        if(maxHealth>100)
+        {
+            background.localScale = new Vector3(background.localScale.x + 0.10f, background.localScale.y, background.localScale.z);
+        }
+      
        
     }
 }

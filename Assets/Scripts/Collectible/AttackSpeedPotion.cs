@@ -13,8 +13,7 @@ public class AttackSpeedPotion : MonoBehaviour
           }*/
         if (collision.gameObject.tag == "Player")
         {
-            // EventManager.Instance.AttackSpeed_EventDetected(AttackSpeedBoostPersentage, BoostTime);
-
+         
             EventManager.Instance.percentageBuff_EventDetected(BoostEnum.attackSpeed, AttackSpeedBoostPersentage, BoostTime);
         }
     }
